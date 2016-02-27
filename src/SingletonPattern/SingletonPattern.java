@@ -1,8 +1,11 @@
 package singletonpattern;
 
-
 /**
- * Simple Singleton example lazzy initialization process, works absolutely fine in a single threaded environment
+ * Simple Singleton example lazzy initialization process, works absolutely fine
+ * in a single threaded environment
+ * 
+ * In Singleton design, Clone method must override and throw exception
+ * 
  * @author ayub.ali
  */
 class SingletonSimple {
@@ -18,6 +21,11 @@ class SingletonSimple {
 		return singleton;
 	}
 
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException();
+	}
+
 	public void printSingleton() {
 		System.out.println("SingletonSimple");
 	}
@@ -25,9 +33,8 @@ class SingletonSimple {
 
 /*
  * Simple Synchronized version
- * 
  */
-class  SingletonExample2{
+class SingletonExample2 {
 	private static SingletonExample2 singleton = null;
 
 	private SingletonExample2() {
@@ -39,25 +46,23 @@ class  SingletonExample2{
 		}
 		return singleton;
 	}
+
 	public void printSingleton() {
 		System.out.println("SingletonExample2");
 	}
 }
 
-
 class SingletonExample3 {
-	private static SingletonExample3 singleton=null;
-	
-	private SingletonExample3(){
-		
+	private static SingletonExample3 singleton = null;
+
+	private SingletonExample3() {
+
 	}
-	private static SingletonExample3 getSingletonInstance()
-	{
-		if(null == singleton)
-		{
+
+	private static SingletonExample3 getSingletonInstance() {
+		if (null == singleton) {
 			synchronized (SingletonExample3.class) {
-				if(null== singleton)
-				{
+				if (null == singleton) {
 					singleton = new SingletonExample3();
 				}
 			}
@@ -69,8 +74,7 @@ class SingletonExample3 {
 public class SingletonPattern {
 
 	public static void main(String[] args) {
- 
-		
+
 		SingletonSimple simple = SingletonSimple.getSingletonInstance();
 		simple.printSingleton();
 	}
